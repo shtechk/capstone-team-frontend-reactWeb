@@ -1,27 +1,31 @@
-import React, { useState, createContext, useContext, useEffect } from "react";
-import { jwtDecode } from "jwt-decode";
-import { getToken } from "../apis/storage"; // Adjust the path according to your project structure
+import React, { createContext, useState, useContext } from "react";
+import { getToken, removeToken, storeToken } from "../apis/storage";
+import { getUserProfile, login as loginUserApi } from "../apis/auth";
 
-export const UserContext = createContext(null);
+const UserContext = createContext(null);
 
-export const useUser = () => useContext(UserContext); // Add this hook
+export const useUser = () => useContext(UserContext);
 
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    const token = getToken();
-    if (token) {
-      const decodedUser = jwtDecode(token);
-      setUser(decodedUser);
-    }
-  }, []);
+  const login = async (userInfo) => {
+    const data = await loginUserApi(userInfo);
+    storeToken(data.token);
+    const userProfile = await getUserProfile();
+    setUser(userProfile);
+  };
+
+  const logout = () => {
+    removeToken();
+    setUser(null);
+  };
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser, login, logout }}>
       {children}
     </UserContext.Provider>
   );
 };
 
-export { UserProvider };
+export { UserProvider, UserContext };

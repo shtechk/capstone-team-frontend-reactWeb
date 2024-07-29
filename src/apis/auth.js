@@ -9,4 +9,9 @@ const login = async (userInfo) => {
   return data;
 };
 
-export { login };
+const getUserProfile = async () => {
+  const { data } = await instance.get("/users/profile"); // Adjust the endpoint if necessary
+  return data;
+};
+
+export { login, getUserProfile };

@@ -3,11 +3,11 @@ const storeToken = (token) => {
 };
 
 const getToken = () => {
-  const token = localStorage.getItem("token");
-  return token;
+  return localStorage.getItem("token");
 };
 
 const removeToken = () => {
   localStorage.removeItem("token");
 };
+
 export { storeToken, getToken, removeToken };

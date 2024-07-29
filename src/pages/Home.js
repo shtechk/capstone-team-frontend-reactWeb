@@ -52,20 +52,40 @@ const Home = () => {
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Business Requests</h1>
       {data.map((business) => (
-        <div key={business._id} className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden mb-4">
+        <div
+          key={business._id}
+          className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden mb-4"
+        >
           {business.image && (
             <div>
-              <img className="h-64 w-full" src={`http://localhost:3000/${business.image}`} alt="Business" />
+              <img
+                className="h-64 w-full"
+                src={`http://localhost:3000/${business.image}`}
+                alt="Business"
+              />
             </div>
           )}
           <div className="p-8">
-            <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{business.name}</div>
+            <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
+              {business.name}
+            </div>
             <p className="mt-2 text-black">{business.description}</p>
-            <p className="mt-2 text-black"><strong>Location:</strong> {business.location}</p>
-            <p className="mt-2 text-black"><strong>Mode:</strong> {business.mode}</p>
-            <p className="mt-2 text-black"><strong>Operating Time:</strong> {business.time}</p>
-            <p className="mt-2 text-black"><strong>Date:</strong> {new Date(business.date).toLocaleDateString()}</p>
-            <p className="mt-2 text-black"><strong>Status:</strong> {business.status}</p>
+            <p className="mt-2 text-black">
+              <strong>Location:</strong> {business.location}
+            </p>
+            <p className="mt-2 text-black">
+              <strong>Mode:</strong> {business.mode}
+            </p>
+            <p className="mt-2 text-black">
+              <strong>Operating Time:</strong> {business.time}
+            </p>
+            <p className="mt-2 text-black">
+              <strong>Date:</strong>{" "}
+              {new Date(business.date).toLocaleDateString()}
+            </p>
+            <p className="mt-2 text-black">
+              <strong>Status:</strong> {business.status}
+            </p>
             <div className="mt-4">
               <button
                 className="px-4 py-2 bg-green-500 text-white rounded mr-2"
@@ -75,7 +95,9 @@ const Home = () => {
               </button>
               <button
                 className="px-4 py-2 bg-red-500 text-white rounded"
-                onClick={() => handleApproval(business._id, "rejected_creation")}
+                onClick={() =>
+                  handleApproval(business._id, "rejected_creation")
+                }
               >
                 Reject
               </button>
