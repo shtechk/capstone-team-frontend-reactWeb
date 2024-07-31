@@ -203,81 +203,142 @@ const Profile = () => {
           </form>
         </>
       ) : (
-        <div className="relative bg-white shadow-md rounded-lg p-6">
-          <div className="flex flex-col items-center md:flex-row pt-10">
-            <div className="md:w-3/4 w-full md:pl-6">
-              <div className="md:w-1/4 w-full flex flex-col items-center md:items-start relative">
-                {userProfile?.profile_image && (
-                  <div className="relative w-32 h-32 rounded-full overflow-hidden mb-4 -top-8 border-4 border-white">
-                    <img
-                      src={`http://localhost:3000/${userProfile.profile_image}`}
-                      alt="Profile"
-                      className="w-full h-full object-cover"
+        <>
+          <h1 className="text-2xl font-bold mb-4">Admin Profile</h1>
+          <div className="relative bg-white shadow-md rounded-lg p-6">
+            <div className="flex justify-center mb-4">
+              <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-white">
+                <img
+                  src={
+                    userProfile?.profile_image
+                      ? `http://localhost:3000/${userProfile.profile_image}`
+                      : "/path/to/default/profile.jpg"
+                  }
+                  alt="Profile"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="md:w-3/4 w-full">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="mb-4">
+                    <label
+                      className="block text-gray-700 text-sm font-bold mb-2"
+                      htmlFor="firstName"
+                    >
+                      First Name
+                    </label>
+                    <input
+                      type="text"
+                      id="firstName"
+                      name="firstName"
+                      className="w-full px-3 py-2 border rounded-lg"
+                      value={userProfile?.first_name || ""}
+                      readOnly
                     />
                   </div>
-                )}
+                  <div className="mb-4">
+                    <label
+                      className="block text-gray-700 text-sm font-bold mb-2"
+                      htmlFor="lastName"
+                    >
+                      Last Name
+                    </label>
+                    <input
+                      type="text"
+                      id="lastName"
+                      name="lastName"
+                      className="w-full px-3 py-2 border rounded-lg"
+                      value={userProfile?.last_name || ""}
+                      readOnly
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label
+                      className="block text-gray-700 text-sm font-bold mb-2"
+                      htmlFor="username"
+                    >
+                      Username
+                    </label>
+                    <input
+                      type="text"
+                      id="username"
+                      name="username"
+                      className="w-full px-3 py-2 border rounded-lg"
+                      value={userProfile?.username || ""}
+                      readOnly
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label
+                      className="block text-gray-700 text-sm font-bold mb-2"
+                      htmlFor="phone"
+                    >
+                      Phone Number
+                    </label>
+                    <input
+                      type="text"
+                      id="phone"
+                      name="phone"
+                      className="w-full px-3 py-2 border rounded-lg"
+                      value={userProfile?.phone_number || ""}
+                      readOnly
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label
+                      className="block text-gray-700 text-sm font-bold mb-2"
+                      htmlFor="email"
+                    >
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      className="w-full px-3 py-2 border rounded-lg"
+                      value={userProfile?.email || ""}
+                      readOnly
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label
+                      className="block text-gray-700 text-sm font-bold mb-2"
+                      htmlFor="role"
+                    >
+                      Role
+                    </label>
+                    <input
+                      type="text"
+                      id="role"
+                      name="role"
+                      className="w-full px-3 py-2 border rounded-lg"
+                      value={userProfile?.role || ""}
+                      readOnly
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label
+                      className="block text-gray-700 text-sm font-bold mb-2"
+                      htmlFor="status"
+                    >
+                      Status
+                    </label>
+                    <input
+                      type="text"
+                      id="status"
+                      name="status"
+                      className="w-full px-3 py-2 border rounded-lg"
+                      value={userProfile?.status || ""}
+                      readOnly
+                    />
+                  </div>
+                </div>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="mb-4">
-                  <label
-                    className="block text-gray-700 text-sm font-bold mb-2"
-                    htmlFor="firstName"
-                  >
-                    First Name
-                  </label>
-                  <p className="text-gray-900">{userProfile?.first_name}</p>
-                </div>
-                <div className="mb-4">
-                  <label
-                    className="block text-gray-700 text-sm font-bold mb-2"
-                    htmlFor="lastName"
-                  >
-                    Username
-                  </label>
-                  <p className="text-gray-900">{userProfile?.username}</p>
-                </div>
-                <div className="mb-4">
-                  <label
-                    className="block text-gray-700 text-sm font-bold mb-2"
-                    htmlFor="lastName"
-                  >
-                    Last Name
-                  </label>
-                  <p className="text-gray-900">{userProfile?.last_name}</p>
-                </div>
-                <div className="mb-4">
-                  <label
-                    className="block text-gray-700 text-sm font-bold mb-2"
-                    htmlFor="phone"
-                  >
-                    Phone Number
-                  </label>
-                  <p className="text-gray-900">{userProfile?.phone_number}</p>
-                </div>
-                <div className="mb-4">
-                  <label
-                    className="block text-gray-700 text-sm font-bold mb-2"
-                    htmlFor="role"
-                  >
-                    Role
-                  </label>
-                  <p className="text-gray-900">{userProfile?.role}</p>
-                </div>
-                <div className="mb-4">
-                  <label
-                    className="block text-gray-700 text-sm font-bold mb-2"
-                    htmlFor="status"
-                  >
-                    Status
-                  </label>
-                  <p className="text-gray-900">{userProfile?.status}</p>
-                </div>
-              </div>
-              <p className="text-lg font-semibold">Email</p>
-              <p className="text-gray-600">{userProfile?.email}</p>
             </div>
           </div>
-        </div>
+        </>
       )}
     </div>
   );

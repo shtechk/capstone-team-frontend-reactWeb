@@ -1,0 +1,89 @@
+/* Navbar.css */
+.navbar {
+  background-color: white;
+  padding: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.icon-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 20px; /* Increased margin for better spacing */
+  overflow: visible; /* To make sure text is not cut off */
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+.icon-link::before {
+  content: "";
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(0);
+  transition: transform 0.3s ease, background-color 0.3s ease, top 0.3s ease;
+}
+
+.icon-link:hover::before {
+  transform: scale(1);
+}
+
+.icon-link:hover .icon-container {
+  transform: translateY(-10px) scale(1.2);
+}
+
+.text-home-color {
+  color: #ff6347; /* Example color for home icon */
+  transition: color 0.3s ease;
+}
+
+.text-profile-color {
+  color: #1e90ff; /* Example color for profile icon */
+  transition: color 0.3s ease;
+}
+
+.text-logout-color {
+  color: #32cd32; /* Example color for logout icon */
+  transition: color 0.3s ease;
+}
+
+.text-login-color {
+  color: #ff6347; /* Example color for login icon */
+  transition: color 0.3s ease;
+}
+
+.home-icon:hover .text-home-color,
+.profile-icon:hover .text-profile-color,
+.logout-icon:hover .text-logout-color,
+.login-icon:hover .text-login-color {
+  color: white;
+}
+
+.home-icon:hover::before {
+  background-color: #ff6347; /* Same color as home icon */
+}
+
+.profile-icon:hover::before {
+  background-color: #1e90ff; /* Same color as profile icon */
+}
+
+.logout-icon:hover::before {
+  background-color: #32cd32; /* Same color as logout icon */
+}
+
+.login-icon:hover::before {
+  background-color: #ff6347; /* Same color as login icon */
+}
+
+.icon {
+  font-size: 26px; /* Increased icon size */
+}

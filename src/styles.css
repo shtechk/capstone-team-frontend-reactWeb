@@ -1,0 +1,87 @@
+/* styles.css */
+
+/* Fade Transitions */
+.fade-enter {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 500ms, transform 500ms;
+}
+
+.fade-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: opacity 500ms, transform 500ms;
+}
+
+/* Skeleton Loader */
+.skeleton {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 16px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.skeleton-img {
+  width: 96px;
+  height: 96px;
+  background-color: #e0e0e0;
+  border-radius: 8px;
+  margin-right: 16px;
+}
+
+.skeleton-text {
+  flex-grow: 1;
+}
+
+.skeleton-line {
+  height: 16px;
+  background-color: #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.skeleton-line.short {
+  width: 50%;
+}
+
+/* Skeleton Loader for Search Bar */
+.skeleton-search {
+  height: 40px;
+  background-color: #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+/* Skeleton Loader for Buttons */
+.skeleton-button {
+  width: 100px;
+  height: 40px;
+  background-color: #e0e0e0;
+  border-radius: 8px;
+  margin-right: 16px;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: #f0f0f0;
+  }
+  50% {
+    background-color: #e0e0e0;
+  }
+  100% {
+    background-color: #f0f0f0;
+  }
+}
