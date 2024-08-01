@@ -6,6 +6,7 @@ import { useUser } from "../context/UserContext";
 import { jwtDecode } from "jwt-decode"; // Fix the import for jwtDecode
 import "../LoginPage.css"; // Import the CSS file for styling
 import ConfirmationCheck from "../components/ConfirmationCheck"; // Correctly import the ConfirmationCheck component
+import theImage from "../assets/images/image.jpeg";
 
 const Login = () => {
   const [userInfo, setUserInfo] = useState({});
@@ -45,9 +46,9 @@ const Login = () => {
         <div className="login-left">
           <div className="login-left-content">
             <img
-              src="" // Add the path to your logo here
+              src={theImage} // Add the path to your logo here
               alt="Company Logo"
-              className="company-logo animated-element"
+              className="company-logo animated-element ml-auto mr-auto h-[200px] aspect-square"
             />
             <h1 className="animated-element">Welcome Back!</h1>
             <p className="animated-element">Please enter login details below</p>

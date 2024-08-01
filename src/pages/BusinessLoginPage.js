@@ -6,8 +6,10 @@ import { useUser } from "../context/UserContext";
 import { jwtDecode } from "jwt-decode"; // Fix the import for jwtDecode
 import "../LoginPage.css"; // Import the CSS file for styling
 import ConfirmationCheck from "../components/ConfirmationCheck"; // Correctly import the ConfirmationCheck component
+import theImage from "../assets/images/image.jpeg";
 
-const BusinessLoginPage = () => {
+const PlaceLoginPage = () => {
+  // Updated component name
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isConfirmed, setIsConfirmed] = useState(false);
@@ -21,7 +23,7 @@ const BusinessLoginPage = () => {
       localStorage.setItem("token", data.token);
       setUser(jwtDecode(data.token));
       setIsConfirmed(true); // Show confirmation
-      setTimeout(() => navigate("/business/dashboard"), 3000); // Navigate after confirmation animation
+      setTimeout(() => navigate("/place/dashboard"), 3000); // Navigate after confirmation animation
     },
     onError: (error) => {
       if (
@@ -51,9 +53,9 @@ const BusinessLoginPage = () => {
         <div className="login-left">
           <div className="login-left-content">
             <img
-              src="path/to/your/logo.png"
+              src={theImage}
               alt="Company Logo"
-              className="company-logo animated-element"
+              className="company-logo animated-element ml-auto mr-auto h-[200px] aspect-square"
             />
             <h1 className="animated-element">Welcome Back!</h1>
             <p className="animated-element">Please enter login details below</p>
@@ -96,18 +98,10 @@ const BusinessLoginPage = () => {
             <span>Terms of Use Privacy Policy</span>
           </div>
         </div>
-        <div className="login-right">
-          <div className="login-image">
-            <img
-              src="path/to/your/image.png"
-              alt="Login Illustration"
-              className="w-3/4"
-            />
-          </div>
-        </div>
+        <div className="login-right"></div>
       </div>
     </div>
   );
 };
 
-export default BusinessLoginPage;
+export default PlaceLoginPage;

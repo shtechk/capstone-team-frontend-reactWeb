@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import {
-  getAllBusinessRequests,
-  approveOrRejectBusiness,
-} from "../apis/business"; // Adjust the path according to your project structure
+import { getAllPlaceRequests, approveOrRejectPlace } from "../apis/place"; // Adjust the path according to your project structure
 import { useUser } from "../context/UserContext"; // Adjust the path according to your project structure
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -18,26 +15,26 @@ const Home = () => {
   const { user } = useUser();
 
   const { data, error, isLoading } = useQuery({
-    queryKey: ["businessRequests"],
-    queryFn: getAllBusinessRequests,
+    queryKey: ["placeRequests"],
+    queryFn: getAllPlaceRequests,
   });
 
   const mutation = useMutation({
-    mutationFn: approveOrRejectBusiness,
+    mutationFn: approveOrRejectPlace,
     onSuccess: (data, variables) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries("businessRequests");
+      queryClient.invalidateQueries("placeRequests");
       if (variables.status === "approved") {
         toast.success(
           <div className="toast-message1">
-            <span className="toast-icon">✔️</span> Business accepted
+            <span className="toast-icon">✔️</span> Place accepted
           </div>,
           { className: "toast-container" }
         );
       } else {
         toast.error(
           <div className="toast-message">
-            <span className="toast-icon">❌</span> Business rejected
+            <span className="toast-icon">❌</span> Place rejected
           </div>,
           { className: "toast-container" }
         );
@@ -89,22 +86,22 @@ const Home = () => {
   }
 
   if (error) {
-    return <div>Error loading business requests: {error.message}</div>;
+    return <div>Error loading place requests: {error.message}</div>;
   }
 
   if (!data || data.length === 0) {
     return (
       <div className="container mx-auto p-4">
         <ToastContainer />
-        <div>No new business requests.</div>
+        <div>No new place requests.</div>
       </div>
     );
   }
 
   const filteredData = data.filter(
-    (business) =>
-      business.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      business.mode.toLowerCase().includes(searchTerm.toLowerCase())
+    (place) =>
+      place.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      place.mode.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -119,51 +116,49 @@ const Home = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
-      {filteredData.map((business) => (
+      {filteredData.map((place) => (
         <div
-          key={business._id}
+          key={place._id}
           className="flex items-center bg-white rounded-lg shadow-md overflow-hidden mb-4 p-4"
         >
-          {business.image && (
+          {place.image && (
             <img
               className="w-24 h-24 object-cover mr-4"
-              src={`http://localhost:3000/${business.image}`}
-              alt="Business"
+              src={`http://localhost:3000/${place.image}`}
+              alt="Place"
             />
           )}
           <div className="flex-grow">
             <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
-              {business.name}
+              {place.name}
             </div>
-            <p className="text-gray-500">{business.description}</p>
+            <p className="text-gray-500">{place.description}</p>
             <p className="text-gray-500">
-              <strong>Location:</strong> {business.location}
+              <strong>Location:</strong>{" "}
+              {place.location ? JSON.stringify(place.location) : "N/A"}
             </p>
             <p className="text-gray-500">
-              <strong>Mode:</strong> {business.mode}
+              <strong>Mode:</strong> {place.mode}
             </p>
             <p className="text-gray-500">
-              <strong>Operating Time:</strong> {business.time}
+              <strong>Operating Time:</strong> {place.time}
             </p>
             <p className="text-gray-500">
-              <strong>Date:</strong>{" "}
-              {new Date(business.date).toLocaleDateString()}
+              <strong>Date:</strong> {new Date(place.date).toLocaleDateString()}
             </p>
             <p className="text-gray-500">
-              <strong>Status:</strong> {business.status}
+              <strong>Status:</strong> {place.status}
             </p>
             <div className="mt-2 flex">
               <button
                 className="px-4 py-2 bg-green-500 text-white rounded mr-2"
-                onClick={() => handleApproval(business._id, "approved")}
+                onClick={() => handleApproval(place._id, "approved")}
               >
                 Approve
               </button>
               <button
                 className="px-4 py-2 bg-red-500 text-white rounded"
-                onClick={() =>
-                  handleApproval(business._id, "rejected_creation")
-                }
+                onClick={() => handleApproval(place._id, "rejected_creation")}
               >
                 Reject
               </button>

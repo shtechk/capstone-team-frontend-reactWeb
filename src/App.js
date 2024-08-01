@@ -50,8 +50,8 @@ const AppContent = () => {
           <Routes location={location}>
             <Route path="/" element={<Login />} />
             <Route path="/admin/home" element={<Home />} />
-            <Route path="/business/login" element={<BusinessLoginPage />} />
-            <Route path="/business/dashboard" element={<BusinessDashboard />} />
+            <Route path="/place/login" element={<BusinessLoginPage />} />
+            <Route path="/place/dashboard" element={<BusinessDashboard />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/confirmation" element={<Confirmation />} />{" "}
             {/* Add the confirmation route */}

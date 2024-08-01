@@ -11,13 +11,13 @@ const Navbar = () => {
 
   const handleLogout = () => {
     logout();
-    navigate("/business/login");
+    navigate("/place/login");
   };
 
   return (
     <nav className="navbar">
       <div className="container mx-auto flex justify-between items-center">
-        <NavLink to="/business/dashboard" className="icon-link home-icon">
+        <NavLink to="/place/dashboard" className="icon-link home-icon">
           <motion.div
             whileHover={{ y: -10, scale: 1.2 }} // Hover effect applied
             className="icon-container"
@@ -46,7 +46,7 @@ const Navbar = () => {
           </div>
         ) : (
           <div className="flex items-center">
-            <NavLink to="/business/login" className="icon-link login-icon">
+            <NavLink to="/place/login" className="icon-link login-icon">
               <motion.div
                 whileHover={{ y: -10, scale: 1.2 }} // Hover effect applied
                 className="icon-container"

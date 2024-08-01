@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { getBusinessBookings, updateBookingStatus } from "../apis/booking";
+import { getPlaceBookingRequests, updateBookingStatus } from "../apis/place"; // Ensure correct imports
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../toast.css";
@@ -13,12 +13,12 @@ const BusinessDashboard = () => {
 
   const { data: bookings, isLoading } = useQuery({
     queryKey: ["bookings"],
-    queryFn: getBusinessBookings,
+    queryFn: getPlaceBookingRequests, // Correctly use getPlaceBookingRequests
   });
 
   const mutation = useMutation({
     mutationFn: ({ bookingId, status }) =>
-      updateBookingStatus(bookingId, status),
+      updateBookingStatus(bookingId, status), // Correctly use updateBookingStatus
     onMutate: async ({ bookingId, status }) => {
       await queryClient.cancelQueries(["bookings"]);
       const previousBookings = queryClient.getQueryData(["bookings"]);
@@ -109,7 +109,7 @@ const BusinessDashboard = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
-      <h1 className="text-2xl font-bold mb-4">Business Dashboard</h1>
+      <h1 className="text-2xl font-bold mb-4">Place Dashboard</h1>
       {filteredBookings?.map((booking) => (
         <div
           key={booking._id}

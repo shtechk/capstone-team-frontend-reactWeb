@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { getBusinessDetails, updateBusinessDetails } from "../apis/business";
+import { getPlaceDetails, updatePlaceDetails } from "../apis/place"; // Updated import
 import { getUserProfile } from "../apis/user";
 import { useUser } from "../context/UserContext";
 
@@ -9,18 +9,26 @@ const Profile = () => {
   const { user } = useUser();
 
   const [formData, setFormData] = useState({
-    name: "",
+    name: "test",
     time: "",
     date: "",
     location: "",
     description: "",
     image: null,
     mode: "",
+    mood: "",
+    food: "",
+    drinks: "",
+    service: "",
+    parking: "",
+    timings: "",
+    location_type: "",
+    location_coordinates: "",
   });
 
-  const { data: business, isLoading: isBusinessLoading } = useQuery({
-    queryKey: ["businessDetails"],
-    queryFn: getBusinessDetails,
+  const { data: place, isLoading: isPlaceLoading } = useQuery({
+    queryKey: ["placeDetails"],
+    queryFn: getPlaceDetails,
     enabled: user?.role === "business",
   });
 
@@ -31,25 +39,35 @@ const Profile = () => {
   });
 
   const mutation = useMutation({
-    mutationFn: updateBusinessDetails,
+    mutationFn: updatePlaceDetails,
     onSuccess: () => {
-      queryClient.invalidateQueries(["businessDetails"]);
+      queryClient.invalidateQueries(["placeDetails"]);
     },
   });
-
+  console.log(place);
   useEffect(() => {
-    if (business && business.business) {
+    if (place) {
       setFormData({
-        name: business.business.name,
-        time: business.business.time,
-        date: business.business.date,
-        location: business.business.location,
-        description: business.business.description,
+        name: place[0].name || "",
+        time: place[0].time || "",
+        date: place[0].date || "",
+        location: place[0].location?.description || place[0].location || "", // Adjust this as per your data structure
+        description: place[0].description || "",
         image: null,
-        mode: business.business.mode,
+        mode: place[0].mode || "",
+        mood: place[0].mood || "",
+        food: place[0].food || "",
+        drinks: place[0].drinks || "",
+        service: place[0].service || "",
+        parking: place[0].parking || "",
+        timings: place[0].timings || "",
+        location_type: place[0].location?.type || "",
+        location_coordinates: place[0].location?.coordinates
+          ? JSON.stringify(place[0].location.coordinates)
+          : "",
       });
     }
-  }, [business]);
+  }, [place]);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -69,9 +87,9 @@ const Profile = () => {
     mutation.mutate(formDataToSubmit);
   };
 
-  if (isBusinessLoading || isUserLoading) return <div>Loading...</div>;
+  if (isPlaceLoading || isUserLoading) return <div>Loading...</div>;
   if (!user) return <div>User not logged in</div>;
-
+  console.log(user.role);
   return (
     <div className="container mx-auto p-4">
       {user.role === "business" ? (
@@ -181,6 +199,134 @@ const Profile = () => {
               <div className="mb-4">
                 <label
                   className="block text-gray-700 text-sm font-bold mb-2"
+                  htmlFor="mood"
+                >
+                  Mood
+                </label>
+                <input
+                  type="text"
+                  id="mood"
+                  name="mood"
+                  className="w-full px-3 py-2 border rounded-lg"
+                  value={formData.mood}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mb-4">
+                <label
+                  className="block text-gray-700 text-sm font-bold mb-2"
+                  htmlFor="food"
+                >
+                  Food
+                </label>
+                <input
+                  type="text"
+                  id="food"
+                  name="food"
+                  className="w-full px-3 py-2 border rounded-lg"
+                  value={formData.food}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mb-4">
+                <label
+                  className="block text-gray-700 text-sm font-bold mb-2"
+                  htmlFor="drinks"
+                >
+                  Drinks
+                </label>
+                <input
+                  type="text"
+                  id="drinks"
+                  name="drinks"
+                  className="w-full px-3 py-2 border rounded-lg"
+                  value={formData.drinks}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mb-4">
+                <label
+                  className="block text-gray-700 text-sm font-bold mb-2"
+                  htmlFor="service"
+                >
+                  Service
+                </label>
+                <input
+                  type="text"
+                  id="service"
+                  name="service"
+                  className="w-full px-3 py-2 border rounded-lg"
+                  value={formData.service}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mb-4">
+                <label
+                  className="block text-gray-700 text-sm font-bold mb-2"
+                  htmlFor="parking"
+                >
+                  Parking
+                </label>
+                <input
+                  type="text"
+                  id="parking"
+                  name="parking"
+                  className="w-full px-3 py-2 border rounded-lg"
+                  value={formData.parking}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mb-4">
+                <label
+                  className="block text-gray-700 text-sm font-bold mb-2"
+                  htmlFor="timings"
+                >
+                  Timings
+                </label>
+                <input
+                  type="text"
+                  id="timings"
+                  name="timings"
+                  className="w-full px-3 py-2 border rounded-lg"
+                  value={formData.timings}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mb-4">
+                <label
+                  className="block text-gray-700 text-sm font-bold mb-2"
+                  htmlFor="location_type"
+                >
+                  Location Type
+                </label>
+                <input
+                  type="text"
+                  id="location_type"
+                  name="location_type"
+                  className="w-full px-3 py-2 border rounded-lg"
+                  value={formData.location_type}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mb-4">
+                <label
+                  className="block text-gray-700 text-sm font-bold mb-2"
+                  htmlFor="location_coordinates"
+                >
+                  Location Coordinates
+                </label>
+                <input
+                  type="text"
+                  id="location_coordinates"
+                  name="location_coordinates"
+                  className="w-full px-3 py-2 border rounded-lg"
+                  value={formData.location_coordinates}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mb-4">
+                <label
+                  className="block text-gray-700 text-sm font-bold mb-2"
                   htmlFor="image"
                 >
                   Image
@@ -198,7 +344,7 @@ const Profile = () => {
               type="submit"
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
-              Update Business
+              Update Place
             </button>
           </form>
         </>
